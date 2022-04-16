@@ -7,6 +7,12 @@ import { TaskForm } from "./TaskForm";
 import { LoginForm } from "./LoginForm";
 
 export const App = () => {
+  const [hideCompleted, setHideCompleted] = useState(false);
+  const user = useTracker(() => Meteor.user());
+  const userFilter = user ? { userId: user._id } : {};
+  const hideCompletedFilter = { isChecked: { $ne: true } };
+  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
+
   const { tasks, pendingTasksCount, isLoading } = useTracker(() => {
     const noDataAvailable = { tasks: [], pendingTasksCount: 0 };
     if (!Meteor.user()) {
@@ -29,18 +35,12 @@ export const App = () => {
     return { tasks, pendingTasksCount };
   });
 
-  const [hideCompleted, setHideCompleted] = useState(false);
-  const user = useTracker(() => Meteor.user());
-  const hideCompletedFilter = { isChecked: { $ne: true } };
   // const pendingTasksCount = useTracker(() => {
   //   if (!user) {
   //     return 0;
   //   }
   //   return TasksCollection.find(hideCompletedFilter).count();
   // });
-
-  const userFilter = user ? { userId: user._id } : {};
-  const pendingOnlyFilter = { ...hideCompletedFilter, ...userFilter };
 
   const pendingTasksTitle = `${
     pendingTasksCount ? ` (${pendingTasksCount})` : ""
