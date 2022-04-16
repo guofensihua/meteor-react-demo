@@ -35,39 +35,14 @@ export const App = () => {
     return { tasks, pendingTasksCount };
   });
 
-  // const pendingTasksCount = useTracker(() => {
-  //   if (!user) {
-  //     return 0;
-  //   }
-  //   return TasksCollection.find(hideCompletedFilter).count();
-  // });
-
   const pendingTasksTitle = `${
     pendingTasksCount ? ` (${pendingTasksCount})` : ""
   }`;
-  // const tasks = useTracker(() => {
-  //   if (!user) {
-  //     return [];
-  //   }
-
-  //   return TasksCollection.find(
-  //     hideCompleted ? pendingOnlyFilter : userFilter,
-  //     {
-  //       sort: { createdAt: -1 },
-  //     }
-  //   ).fetch();
-  // });
 
   const toggleChecked = ({ _id, isChecked }) => {
-    // TasksCollection.update(_id, {
-    //   $set: {
-    //     isChecked: !isChecked,
-    //   },
-    // });
     Meteor.call("tasks.setIsChecked", _id, !isChecked);
   };
 
-  // const deleteTask = ({ _id }) => TasksCollection.remove(_id);
   const deleteTask = ({ _id }) => Meteor.call("tasks.remove", _id);
 
   const logout = () => Meteor.logout();

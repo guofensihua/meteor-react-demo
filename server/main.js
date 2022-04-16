@@ -1,6 +1,5 @@
 import { Meteor } from "meteor/meteor";
 import { Accounts } from "meteor/accounts-base";
-// import { TasksCollection } from "../imports/db/TasksCollection";
 import { TasksCollection } from "../imports/db/TasksCollection";
 import { ServiceConfiguration } from "meteor/service-configuration";
 import "/imports/api/tasksMethods";
@@ -25,17 +24,17 @@ Meteor.startup(() => {
 
   const user = Accounts.findUserByUsername(SEED_USERNAME);
 
-  if (TasksCollection.find().count() === 0) {
-    [
-      "First Task",
-      "Second Task",
-      "Third Task",
-      "Fourth Task",
-      "Fifth Task",
-      "Sixth Task",
-      "Seventh Task",
-    ].forEach((taskText) => insertTask(taskText, user));
-  }
+  // if (TasksCollection.find().count() === 0) {
+  //   [
+  //     "First Task",
+  //     "Second Task",
+  //     "Third Task",
+  //     "Fourth Task",
+  //     "Fifth Task",
+  //     "Sixth Task",
+  //     "Seventh Task",
+  //   ].forEach((taskText) => insertTask(taskText, user));
+  // }
 });
 
 ServiceConfiguration.configurations.upsert(
